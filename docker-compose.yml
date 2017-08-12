@@ -1,0 +1,23 @@
+version: '2'
+services:
+  tournament_db:
+    image: mdillon/postgis
+    environment:
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_DB
+  tournament_app:
+    build: .
+    image: olegmdev/social_tournament
+    command: ["./wait-for-database.sh", "tournament_db:5432", "--", "./main", "-env", "local"]
+    depends_on:
+      - "tournament_db"
+    links:
+      - tournament_db
+    environment:
+      - PGHOST=tournament_db
+      - POSTGRES_PASSWORD
+      - POSTGRES_USER
+      - POSTGRES_DB
+    ports:
+      - "9000:9000"
