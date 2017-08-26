@@ -8,19 +8,19 @@ import (
 var config *viper.Viper
 
 func Init(env string) {
-	var err error
+  var err error
 
   config = viper.New()
-	config.SetConfigType("yaml")
-	config.SetConfigName(env)
-	config.AddConfigPath("config/")
+  config.SetConfigType("yaml")
+  config.SetConfigName(env)
+  config.AddConfigPath("config/")
 
   err = config.ReadInConfig()
-	if err != nil {
-		log.Fatal("error on parsing configuration file")
-	}
+  if err != nil {
+    log.Fatal("error on parsing configuration file")
+  }
 }
 
 func GetConfig() *viper.Viper {
-	return config
+  return config
 }
